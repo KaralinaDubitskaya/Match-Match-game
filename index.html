@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Match-Match game</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Match-Match game</h1>
+
+    <div class="score">
+        <span>Time: 0</span>
+        <span>Moves: 0</span>
+    </div>
+
+    <div id="deck"></div>
+
+    <div class="popup-window" id="popup">
+        <p class="result-header">Congratulations!</p>
+
+        <div class="result">
+            <p>Moves: </p>
+            <p>Time: </p>
+        </div>
+
+        <button id="btn-play-again" onclick="playAgainClick()">
+            <a>Play again!</a>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html> 
