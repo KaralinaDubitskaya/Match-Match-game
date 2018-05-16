@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Match-Match game</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 </head>
 <body>
-    <h1>Match-Match game</h1>
+    <div class="container">
+        <h1>Match-Match game</h1>
 
-    <section class="score">
-        <span id="counter">Time: 0</span>
-        <span id="timer">Moves: 0</span>
-        <span class="restart" onclick="startGame()">
-            <i class="fa fa-repeat"></i>
-        </span>
-    </section>
+        <section class="score">
+            Moves: <span id="counter">0</span>
+            Time: <span id="timer">0</span>
+            <span class="restart" onclick="startGame()">
+                <i class="fa fa-repeat"></i>
+            </span>
+        </section>
 
-    <div id="deck"></div>
+        <div id="deck" class="deck"></div>
 
-    <div class="popup-window" id="popup">
-        <p class="result-header">Congratulations!</p>
+        <div class="popup-window hidden" id="popup">
+            <p class="result-header">Congratulations!</p>
 
-        <div class="result">
-            <p id="moves">Moves: </p>
-            <p id="finalTime">Time: </p>
+            <div class="result">
+                <div>Moves: <span id="moves"></span></div>
+                <div>Time: <span id="finalTime"></span></div>
+            </div>
+
+            <button id="btn-play-again" onclick="startGame()">
+                <a>Play again!</a>
+            </button>
         </div>
-
-        <button id="btn-play-again" onclick="playAgain()">
-            <a>Play again!</a>
-        </button>
     </div>
 
     <script src="script.js"></script>

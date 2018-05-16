@@ -2,22 +2,96 @@ body {
     background-image: url("img/0.jpg");
     text-align: center;   
     font-family: 'Indie Flower', cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
     font-size: 8vh;
     color: rgb(31, 31, 209);
     text-shadow: -3px 0 white, 0 3px white, 3px 0 white, 0 -3px white;
+    margin: 0;
 }
 
 .score {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     font-size: 5vh;
     color: rgb(83, 11, 71);
     text-shadow: -3px 0 white, 0 3px white, 3px 0 white, 0 -3px white;
 }
 
 .score span {
-    margin: 0.6vh;
+    margin: 0.6vh 1vw;
+    min-width: 50px;
+}
+
+.restart {
+    cursor: pointer;
+}
+
+.container {
+    width: 100%;
+    justify-content: space-around;
+	max-width: 1500px;
+}
+
+.deck {
+    width: 90%;
+    margin: auto;
+	padding: 1em;
+	border-radius: 5px;
+    display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.card {
+    height: 12rem;
+    width: 12rem;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex;
+	justify-content: center;
+	align-items: center;
+    overflow: hidden;
+    margin: 10px;
+    background: rgb(239, 255, 96);
+}
+
+img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.match {
+    cursor: default;
+}
+
+.disabled {
+    pointer-events: none;
+}
+
+.hidden {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.visible {
+    visibility: visible;
+    position: fixed;
+    top: 25%;
+    left: 37%;
 }
 
 .popup-window {
@@ -51,4 +125,5 @@ button {
     border-color: #008CBA;
     font-family: 'Indie Flower';
     font-size: 1.5rem;
+    cursor: pointer;
 }

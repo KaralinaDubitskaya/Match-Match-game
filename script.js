@@ -1,19 +1,21 @@
+let input = prompt('Choose size of the deck', 18);
+
 // deck of all cards in the game
 const deck = document.getElementById("deck");
-const num_of_cards = 16;
+let num_of_cards = getDeckSize(input);
 
 
 deck.innerHTML = "";
 for (let i = 1; i <= num_of_cards / 2; i++) {
-    deck.innerHTML += "<div class=\"card\" type=\"fish_" + i + "\"><img src=\"img/" + i + ".JPG\"></div>";
+    deck.innerHTML += "<div class=\"card\" id=\"fish" + i + "\"><img class=\"hidden\" draggable=\"false\" src=\"img/" + i + ".JPG\"></div>";
 }
 deck.innerHTML += deck.innerHTML;
 
 // cards array holds all cards
 let cardsList = document.getElementsByClassName("card");
-let cards = [...card]
+let cards = [...cardsList];
 
-let openedCards;
+let openedCards = [];
 let matchedCards;
 
 let moves;
@@ -25,15 +27,31 @@ let timer;
 
 let popup = document.getElementById("popup");
 
+window.onload = startGame();
+
+function displayCard() {
+    this.classList.toggle("disabled");
+    this.querySelector("img").classList.remove("hidden");
+}
+
+function cardOpen() {
+    openedCards.push(this);
+    if (openedCards.length == 2) {
+        addMove();
+        if (openedCards[0].id === openedCards[1].id) {
+            match();
+        } else {
+            miss();
+        }
+    }
+}
+
 // add event listener to each card
 for (var i = 0; i < cards.length; i++) {
     cards[i].addEventListener("click", displayCard);
     cards[i].addEventListener("click", cardOpen);
     cards[i].addEventListener("click", showResult);
 }
-
-window.onload = startGame();
-
 
 function startGame() {
     formDeck();
@@ -45,8 +63,11 @@ function startGame() {
     openedCards = [];
     matchedCards = [];
 
-    timer.innerHTML = "Time: " + minute + ":" + second;
-    counter.innerHTML = "Count: 0";
+    time.innerHTML = minute + " : " + second;
+    counter.innerHTML = "0";
+
+    popup.classList.remove("visible");
+    popup.classList.add("hidden");
 
     // Reset the timer
     clearInterval(timer);
@@ -57,21 +78,17 @@ function formDeck() {
 
     deck.innerHTML = "";
 
-    for (var i = 0; i < cards.length; i++) {
+    for (let i = 0; i < cards.length; i++) {
         Array.prototype.forEach.call(cards, function(item) {
             deck.appendChild(item);
         });
-        cards[i].classList.remove("show", "open", "matched", "disabled");
-        deck.appendChild(card);
+        cards[i].classList.remove("matched", "disabled");
+        cards[i].querySelector("img").classList.add("hidden");
+        deck.appendChild(cards[i]);
     }
 }
 
-// toggles open, show and disabled classes on click
-var displayCard = function() {
-    this.classList.toggle("open");
-    this.classList.toggle("show");
-    this.classList.toggle("disabled");
-}
+
 
 // Fisher-Yates Shuffle
 function shuffle(array) {
@@ -92,26 +109,12 @@ function shuffle(array) {
     return array;
 }
 
-function cardOpen() {
-    openedCards.push(this);
-    if (openedCards.length === 2) {
-        addMove();
-        if (openedCards[0].type === openedCards[1].type) {
-            match();
-        } else {
-            miss();
-        }
-    }
-}
-
 // cards match
 function match() {
     openedCards[0].classList.add("matched", "disabled");
     openedCards[1].classList.add("matched", "disabled");
-    openedCards[0].classList.remove("show", "open");
-    openedCards[1].classList.remove("show", "open");
-    matchedCards.add(openedCards[0]);
-    matchedCards.add(openedCards[1]);
+    matchedCards.push(openedCards[0]);
+    matchedCards.push(openedCards[1]);
     openedCards = [];
 }
 
@@ -119,11 +122,11 @@ function match() {
 function miss() {
     disableCards();
     setTimeout(function() {
-        openedCards[0].classList.remove("show", "open");
-        openedCards[1].classList.remove("show", "open");
+        openedCards[0].querySelector("img").classList.add("hidden");
+        openedCards[1].querySelector("img").classList.add("hidden");
         enableCards();
         openedCards = [];
-    }, 1000);
+    }, 700);
 }
 
 function disableCards() {
@@ -140,9 +143,9 @@ function enableCards() {
     });
 }
 
-function addMoves() {
+function addMove() {
     moves++;
-    counter.innerHTML = "Moves: " + moves;
+    counter.innerHTML = moves;
     // start timer on the first move
     if (moves == 1) {
         startTimer();
@@ -151,7 +154,7 @@ function addMoves() {
 
 function startTimer() {
     timer = setInterval(function() {
-        time.innerHTML = "Time: " + minute + ":" + second;
+        time.innerHTML = minute + " : " + second;
         second++;
 
         if (second == 60) {
@@ -168,14 +171,14 @@ function startTimer() {
 function showResult() {
     if (matchedCards.length == num_of_cards) {
         clearInterval(timer);
-
-        popup.classList.add("show");
+        popup.classList.add("visible");
         document.getElementById("moves").innerHTML = counter.innerHTML;
         document.getElementById("finalTime").innerHTML = time.innerHTML;
+        popup.classList.remove("hidden");
     }
 }
 
-function playAgain() {
-    popup.classList.remove("show");
-    startGame();
+function getDeckSize(input) {
+    let validInput = [4,6,8,10,12,14,16,18];
+    return validInput.includes(+input) ? input : 18;
 }
