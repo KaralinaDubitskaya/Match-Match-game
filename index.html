@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Match-Match game</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <title>Match-Match game</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 </head>
-
 <body>
     <h1>Match-Match game</h1>
 
-    <div class="score">
-        <span>Time: 0</span>
-        <span>Moves: 0</span>
-    </div>
+    <section class="score">
+        <span id="counter">Time: 0</span>
+        <span id="timer">Moves: 0</span>
+        <span class="restart" onclick="startGame()">
+            <i class="fa fa-repeat"></i>
+        </span>
+    </section>
 
     <div id="deck"></div>
 
@@ -20,11 +23,11 @@
         <p class="result-header">Congratulations!</p>
 
         <div class="result">
-            <p>Moves: </p>
-            <p>Time: </p>
+            <p id="moves">Moves: </p>
+            <p id="finalTime">Time: </p>
         </div>
 
-        <button id="btn-play-again" onclick="playAgainClick()">
+        <button id="btn-play-again" onclick="playAgain()">
             <a>Play again!</a>
         </button>
     </div>
